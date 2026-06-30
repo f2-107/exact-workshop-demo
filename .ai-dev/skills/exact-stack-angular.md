@@ -65,6 +65,31 @@ ng generate component features/beer/beer
 ng generate service features/beer/beer
 ```
 
+## RED Phase: Skeleton Before Test
+
+Before writing a test for a class that doesn't exist yet, create a minimal skeleton so TypeScript compiles. Use `throw new Error('not implemented')` — this gives a clear test failure, not a compile error.
+
+```typescript
+export class BeerValidator {
+    static isValid(name: string | null): boolean {
+        throw new Error('not implemented');
+    }
+}
+```
+
+```typescript
+@Injectable({ providedIn: 'root' })
+export class BeerService {
+    constructor(private http: HttpClient) {}
+
+    getBeers(): Observable<Beer[]> {
+        throw new Error('not implemented');
+    }
+}
+```
+
+Then write the test, run `npx jest` → RED, then implement in GREEN.
+
 ## Test Code Patterns
 
 ### Service Unit Test (pure function)

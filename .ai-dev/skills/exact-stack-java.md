@@ -51,6 +51,29 @@ src/main/resources/
 ./gradlew bootRun
 ```
 
+## RED Phase: Skeleton Before Test
+
+Before writing a test for a class that doesn't exist yet, create a minimal skeleton so the code compiles. Use `UnsupportedOperationException` — this gives a clear test failure, not a compile error.
+
+```java
+public class BeerValidator {
+    public static boolean isValid(String name) {
+        throw new UnsupportedOperationException("not implemented");
+    }
+}
+```
+
+```java
+@Service
+public class BeerService {
+    public List<BeerDto> getAllBeers() {
+        throw new UnsupportedOperationException("not implemented");
+    }
+}
+```
+
+Then write the test, run `./gradlew test` → RED, then implement in GREEN.
+
 ## Test Code Patterns
 
 ### Simple Unit Test (no Spring context)

@@ -23,11 +23,12 @@ Before calling this skill, you MUST have:
 ## Test Writing Philosophy
 
 ### Core Rules
-1. **Test = Executable Example** — Each test is one example from gathering
-2. **Focused Assertions** — Each test covers one behaviour; assert everything relevant to that behaviour
-3. **Minimal Setup** — Only arrange what's needed for the example
-4. **Clear Names** — Test name describes the example being tested
-5. **No Production Code** — Tests only, no implementation
+1. **One Test Per Cycle** — Write ONE test, go GREEN, then write the next
+2. **Test = Executable Example** — Each test is one example from gathering
+3. **Focused Assertions** — Each test covers one behaviour; assert everything relevant to that behaviour
+4. **Minimal Setup** — Only arrange what's needed for the example
+5. **Clear Names** — Test name describes the example being tested
+6. **No Production Code** — Tests only, no implementation
 
 ### Test Naming Convention
 ```
@@ -46,6 +47,8 @@ shouldReturnEmptyListWhenNoBeerInStock()
 ---
 
 ## Test Code Patterns by Type
+
+> **Note:** The patterns below use Java. For Kotlin and Angular/TypeScript equivalents, see `exact-stack-kotlin` and `exact-stack-angular`.
 
 ### Pattern 1: Simple Unit Test (No Spring)
 **When to use:** Testing a utility, service method, or pure function
@@ -359,26 +362,13 @@ void shouldValidate() {
 
 ## Test File Locations
 
-Place test files in `src/test/java/com/example/beerapp/` following the source structure:
-
-```
-src/main/java/com/example/beerapp/
-├── BeerService.java
-├── BeerValidator.java
-└── BeerController.java
-
-src/test/java/com/example/beerapp/
-├── BeerServiceTests.java
-├── BeerValidatorTests.java
-└── BeerControllerTests.java
-```
-
-**Test class naming:** `{SourceClass}Tests.java`
+Place test files mirroring the source structure. See your stack file for the exact paths and naming conventions (`exact-stack-java`, `exact-stack-kotlin`, `exact-stack-angular`).
 
 ---
 
 ## Common Mistakes to Avoid
 
+❌ **Multiple tests before going GREEN** — Write one test, cycle RED→GREEN, then write the next  
 ❌ **Unrelated behaviours in one test** — Keep each test focused on a single behaviour  
 ❌ **Complex setup** — Keep Arrange section minimal  
 ❌ **Testing implementation** — Test behavior, not how it's done  
@@ -391,19 +381,18 @@ src/test/java/com/example/beerapp/
 
 ## Output: Test Code Summary
 
-After writing tests, provide:
+After writing the test, provide:
 
 ```
-## Test Code Written
+## Test Written
 
 **Test Class:** BeerValidatorTests.java
 
-**Tests Created:**
+**Test Created:**
 1. ✓ shouldReturnTrueWhenNameIsValid
-2. ✓ shouldReturnFalseWhenNameIsEmpty
-3. ✓ shouldThrowExceptionWhenNameIsNull
 
-**Next Step:** Run `./gradlew test` to confirm RED state (tests should fail).
+**Next Step:** Run the test command for your stack to confirm RED state (test should fail — a test failure, not a compile error).
+Then GREEN → Refactor → pick the next example.
 ```
 
 ---
@@ -413,6 +402,6 @@ After writing tests, provide:
 Tests are ready when:
 1. Each example has its own test method
 2. Test names clearly describe what they test
-3. All assertions use AssertJ
+3. Assertions use the stack's assertion library (AssertJ for Java/Kotlin, Jest matchers for TypeScript)
 4. No production code written (only tests)
-5. Ready to run `./gradlew test` and see failures (RED)
+5. Ready to run the test command and see a failure (RED — test failure, not compile error)

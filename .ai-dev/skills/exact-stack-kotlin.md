@@ -53,6 +53,34 @@ build.gradle.kts
 ./gradlew bootRun
 ```
 
+## RED Phase: Skeleton Before Test
+
+Before writing a test for a class that doesn't exist yet, create a minimal skeleton so the code compiles. Use `NotImplementedError` — this gives a clear test failure, not a compile error.
+
+```kotlin
+class BeerValidator {
+    fun isValid(name: String?): Boolean {
+        throw NotImplementedError("not implemented")
+    }
+}
+```
+
+```kotlin
+@Service
+class BeerService {
+    fun getAllBeers(): List<BeerDto> {
+        throw NotImplementedError("not implemented")
+    }
+}
+```
+
+Kotlin also provides the `TODO()` shorthand which throws `NotImplementedError`:
+```kotlin
+fun isValid(name: String?): Boolean = TODO("not implemented")
+```
+
+Then write the test, run `./gradlew test` → RED, then implement in GREEN.
+
 ## Test Code Patterns
 
 ### Simple Unit Test (no Spring context)
